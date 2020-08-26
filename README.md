@@ -19,6 +19,23 @@ crates that have different `target` directories. This avoids rebuilding OpenBLAS
 unnecessarily. However, this also prevents `cargo clean` from working properly,
 since the aforementioned build products will not be removed by the command.
 
+## Windows and vcpkg
+
+On Windows, `openblas-src` relies on [vcpkg] to find OpenBLAS. Before building,
+you must have the correct OpenBLAS installed for your target triplet and kind of
+linking. For instance, to link dynamically for the `x86_64-pc-windows-msvc`
+toolchain, install `openblas` for the `x64-windows` triplet:
+
+```sh
+vcpkg install openblas --triplet x64-windows
+```
+
+To link statically, install `openblas` for the `x64-windows-static` triplet:
+
+```sh
+vcpkg install openblas --triplet x64-windows-static
+```
+
 ## Cross Compilation
 
 Apart from providing the `--target` option to `cargo build`, one also has to
@@ -38,6 +55,7 @@ will be licensed according to the terms given in [LICENSE.md](LICENSE.md).
 [openblas]: http://www.openblas.net/
 [openblas-cross-compile]: https://github.com/xianyi/OpenBLAS#cross-compile
 [usage]: https://blas-lapack-rs.github.io/usage
+[vcpkg]: https://github.com/Microsoft/vcpkg
 
 [build1-img]: https://travis-ci.org/blas-lapack-rs/openblas-src.svg?branch=master
 [build1-url]: https://travis-ci.org/blas-lapack-rs/openblas-src
